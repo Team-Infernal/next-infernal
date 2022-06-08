@@ -3,15 +3,10 @@ const colors = require("tailwindcss/colors");
 module.exports = {
 	content: ["./pages/**/*.{js,jsx}", "./components/**/*.{js,jsx}"],
 	theme: {
-		screens: {
-			sm: "480px",
-			md: "768px",
-			lg: "976px",
-			xl: "1440px",
-		},
 		colors: {
 			transparent: colors.transparent,
 			white: colors.white,
+			gray: colors.gray,
 			black: colors.black,
 			blue: colors.blue,
 			indigo: colors.indigo,
