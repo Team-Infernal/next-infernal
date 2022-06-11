@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Navbar = () => {
 	return (
-		<nav className="fixed bg-gradient-to-b from-white to-[#ffffff77] top-0 left-0 right-0 py-4 sm:px-4 lg:px-48 xl:px-96 shadow-lg flex justify-between items-center text-xl">
+		<nav className="fixed bg-gradient-to-b from-white to-[#ffffff77] top-0 left-0 right-0 py-4 px-4 lg:px-48 xl:px-96 shadow-lg flex justify-between items-center text-xl">
 			<div className="flex gap-8 items-center">
 				<Image
 					alt="Infernal Logo"
