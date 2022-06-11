@@ -6,13 +6,14 @@ const Navbar = () => {
 		<nav className="fixed top-0 left-0 right-0 py-4 sm:px-4 lg:px-48 xl:px-96 shadow-lg flex justify-between items-center text-xl">
 			<div className="flex gap-8 items-center">
 				<Image
+					alt="Infernal Logo"
 					className="overflow-hidden"
 					src="/img/inf-grey.png"
 					width={96}
 					height={49}
 				/>
 				<Link href="/">
-					<a className="">Accueil</a>
+					<a>Accueil</a>
 				</Link>
 				<Link href="/">
 					<a>Jobs</a>
