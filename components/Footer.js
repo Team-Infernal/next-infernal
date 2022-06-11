@@ -6,7 +6,7 @@ import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 const Footer = () => {
 	return (
 		<div className="grid lg:grid-cols-2">
-			<div className="p-8 pl-4 lg:pl-48 xl:pl-96 bg-indigo-500 flex flex-col gap-4">
+			<div className="p-8 pl-12 lg:pl-48 xl:pl-96 bg-indigo-500 flex flex-col gap-4">
 				<div>
 					<h2 className="text-3xl">Infernal</h2>
 				</div>
@@ -34,7 +34,7 @@ const Footer = () => {
 					</div>
 				</div>
 			</div>
-			<div className="p-8 pr-4 lg:pr-48 xl:pr-96 bg-sky-500">
+			<div className="p-8 pr-12 lg:pr-48 xl:pr-96 bg-sky-500">
 				<p>Lorem ipsum dolor sit amet</p>
 			</div>
 		</div>
