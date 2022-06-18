@@ -27,6 +27,7 @@ module.exports = {
 				"Droid Sans",
 				"Helvetica Neue",
 				"sans-serif",
+				"system-ui",
 			],
 		},
 		extend: {},
