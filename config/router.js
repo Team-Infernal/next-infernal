@@ -1,45 +1,27 @@
 const router = {
 	home: {
-		name: {
-			en: "Home",
-			fr: "Accueil",
-		},
+		name: "Accueil",
 		path: "/",
 	},
 	jobs: {
-		name: {
-			en: "Jobs",
-			fr: "Opportunités",
-		},
+		name: "Opportunités",
 		path: "/jobs",
 	},
 	infbot: {
-		name: {
-			en: "INFBOT",
-			fr: "INFBOT",
-		},
+		name: "INFBOT",
 		path: "/infbot",
 	},
 	auth: {
 		signup: {
-			name: {
-				en: "Sign up",
-				fr: "Créer un compte",
-			},
+			name: "Créer un compte",
 			path: "/auth/signup",
 		},
 		signin: {
-			name: {
-				en: "Sign in",
-				fr: "Se connecter",
-			},
+			name: "Se connecter",
 			path: "/auth/signin",
 		},
 		signout: {
-			name: {
-				en: "Sign out",
-				fr: "Se déconnecter",
-			},
+			name: "Se déconnecter",
 			path: "/auth/signout",
 		},
 	},

@@ -1,121 +1,71 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { signIn } from "next-auth/react";
 
-const createUser = async (email, password) => {
-	const response = await fetch("/api/auth/signup", {
-		method: "POST",
-		body: JSON.stringify({ email, password }),
-		headers: {
-			"Content-Type": "application/json",
-		},
-	});
+import { useAuth } from "../../context/AuthUserContext";
+import localRouter from "../../config/router";
 
-	const data = await response.json();
+const SignIn = () => {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [error, setError] = useState(null);
 
-	if (!response.ok) {
-		throw new Error(data.message || "Something went wrong!");
-	}
-
-	return data;
-};
-
-const AuthForm = () => {
-	const { locale } = useRouter();
-	const emailInputRef = useRef();
-	const passwordInputRef = useRef();
-
-	const [isLogin, setIsLogin] = useState(true);
 	const router = useRouter();
 
-	const switchAuthModeHandler = () => {
-		setIsLogin(prevState => !prevState);
-	};
+	const { signInWithEmailAndPassword } = useAuth();
 
-	const submitHandler = async event => {
-		event.preventDefault();
-
-		const enteredEmail = emailInputRef.current.value;
-		const enteredPassword = passwordInputRef.current.value;
-
-		if (isLogin) {
-			const result = await signIn("credentials", {
-				redirect: false,
-				email: enteredEmail,
-				password: enteredPassword,
+	const onSubmit = event => {
+		setError(null);
+		signInWithEmailAndPassword(email, password)
+			.then(authUser => {
+				router.push("/logged-in");
+			})
+			.catch(error => {
+				setError(error.message);
 			});
 
-			if (!result.error) {
-				router.replace("/profile");
-			}
-		} else {
-			try {
-				const result = await createUser(enteredEmail, enteredPassword);
-				console.log(result);
-			} catch (error) {
-				console.log(error);
-			}
-		}
+		event.preventDefault();
 	};
 
 	return (
 		<div>
-			<h1>
-				{isLogin
-					? locale === "en"
-						? "Sign In"
-						: "Se connecter"
-					: locale === "en"
-					? "Sign Up"
-					: "Créer un compte"}
-			</h1>
-			<form onSubmit={submitHandler}>
+			<form onSubmit={onSubmit}>
+				{error && <div className="alert alert-error shadow-lg">{error}</div>}
 				<div>
-					<label htmlFor="email">Email</label>
 					<input
 						type="email"
-						id="email"
-						required
-						ref={emailInputRef}
+						value={email}
+						onChange={event => setEmail(event.target.value)}
+						placeholder="exemple@exemple.fr"
+						name="email"
+						id="signInEmail"
+						className="input input-bordered w-full max-w-xs"
 					/>
-				</div>
-				<div>
-					<label htmlFor="password">
-						{locale === "en" ? "Password" : "Mot de passe"}
-					</label>
+					<br />
 					<input
 						type="password"
-						id="password"
-						required
-						ref={passwordInputRef}
+						value={password}
+						onChange={event => setPassword(event.target.value)}
+						name="password"
+						id="signUpPassword"
+						className="input input-bordered w-full max-w-xs"
 					/>
 				</div>
+				<button
+					type="submit"
+					className="btn btn-primary"
+				>
+					Se connecter
+				</button>
 				<div>
-					<button>
-						{isLogin
-							? locale === "en"
-								? "Login"
-								: "Se connecter"
-							: locale === "en"
-							? "Sign Up"
-							: "Créer un compte"}
-					</button>
-					<button
-						type="button"
-						onClick={switchAuthModeHandler}
-					>
-						{isLogin
-							? locale === "en"
-								? "Create new account"
-								: "Créer un nouveau compte"
-							: locale === "en"
-							? "Login with existing account"
-							: "Se connecter avec un compte existant"}
-					</button>
+					Pas de compte?{" "}
+					<Link href={localRouter.auth.signup.path}>
+						<a className="link link-hover">Créer un compte</a>
+					</Link>
 				</div>
 			</form>
 		</div>
 	);
 };
 
-export default AuthForm;
+export default SignIn;

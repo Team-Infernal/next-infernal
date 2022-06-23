@@ -1,15 +1,13 @@
 const config = {
 	links: {
 		discord: "https://discord.gg/team-infernal",
+		twitter: "https://twitter.com/ContactInfernal",
+		github: "https://github.com/Team-Infernal",
 	},
 	contact: {
 		email: "contact@teaminfernal.fr",
 	},
 	locales: [
-		{
-			locale: "en",
-			name: "English",
-		},
 		{
 			locale: "fr",
 			name: "Français",

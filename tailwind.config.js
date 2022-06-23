@@ -1,36 +1,38 @@
-const colors = require("tailwindcss/colors");
-
 module.exports = {
 	content: ["./pages/**/*.{js,jsx}", "./components/**/*.{js,jsx}"],
 	theme: {
-		colors: {
-			transparent: colors.transparent,
-			white: colors.white,
-			gray: colors.gray,
-			black: colors.black,
-			blue: colors.blue,
-			indigo: colors.indigo,
-			pink: colors.pink,
-			sky: colors.sky,
-			violet: colors.violet,
-		},
-		fontFamily: {
-			sans: [
-				"-apple-system",
-				"BlinkMacSystemFont",
-				"Segoe UI",
-				"Roboto",
-				"Oxygen",
-				"Ubuntu",
-				"Cantarell",
-				"Fira Sans",
-				"Droid Sans",
-				"Helvetica Neue",
-				"sans-serif",
-				"system-ui",
-			],
-		},
 		extend: {},
 	},
-	plugins: [],
+	plugins: [require("daisyui")],
+	daisyui: {
+		themes: [
+			{
+				"infernal-light": {
+					primary: "#6419E6",
+					secondary: "#D926A9",
+					accent: "#1FB2A6",
+					neutral: "#ffffff",
+					"base-100": "#ffffff",
+					info: "#3ABFF8",
+					success: "#36D399",
+					warning: "#FBBD23",
+					error: "#F87272",
+				},
+			},
+			{
+				"infernal-dark": {
+					primary: "#6419E6",
+					secondary: "#D926A9",
+					accent: "#1FB2A6",
+					neutral: "#191D24",
+					"base-100": "#2A303C",
+					info: "#3ABFF8",
+					success: "#36D399",
+					warning: "#FBBD23",
+					error: "#F87272",
+				},
+			},
+		],
+		darkTheme: "dark",
+	},
 };
