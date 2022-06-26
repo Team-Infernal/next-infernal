@@ -35,7 +35,7 @@ const ForgotPassword = () => {
 	return (
 		<div className="hero">
 			<div className="hero-content flex-col lg:flex-row-reverse">
-				<div className="text-center lg:text-left">
+				<div className="text-center lg:text-left max-w-md">
 					<h1 className="text-5xl font-bold">Mot de passe oublié</h1>
 					<p className="py-6">
 						Pour réinitialiser votre mot de passe, veuillez renseigner votre

@@ -4,7 +4,6 @@
  * @returns {string}
  */
 const errMsg = errorCode => {
-	console.log(errorCode);
 	if (errors.hasOwnProperty(errorCode)) {
 		return errors[errorCode];
 	}
@@ -12,7 +11,7 @@ const errMsg = errorCode => {
 };
 
 const errors = {
-	"auth/email-already-exists":
+	"auth/email-already-in-use":
 		"Cette adresse mail est déjà utilisée. Veuillez réessayer avec une autre.",
 	"auth/invalid-email": "L'adresse mail est invalide.",
 	"auth/invalid-password": "Le mot de passe est invalide.",

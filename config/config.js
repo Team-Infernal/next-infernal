@@ -1,21 +1,11 @@
+import localRouter from "./router";
+
 const config = {
+	navbar: [localRouter.infbot, localRouter.jobs, localRouter.games],
 	footer: [
 		{
 			name: "À propos",
-			data: [
-				{
-					name: "Infernal",
-					path: "/",
-				},
-				{
-					name: "INFBOT",
-					path: "/infbot",
-				},
-				{
-					name: "Jobs",
-					path: "/jobs",
-				},
-			],
+			data: [localRouter.home, localRouter.infbot, localRouter.jobs],
 			isLocal: true,
 		},
 		{

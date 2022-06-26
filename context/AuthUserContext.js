@@ -8,6 +8,7 @@ const authUserContext = createContext({
 	signInWithEmailAndPassword: async () => {},
 	createUserWithEmailAndPassword: async () => {},
 	signOut: async () => {},
+	uploadUserAvatar: async () => {},
 });
 
 const AuthUserProvider = ({ children }) => {

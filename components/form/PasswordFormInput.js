@@ -1,10 +1,17 @@
 import Link from "next/link";
 
-const PasswordFormInput = ({ password, setPassword, forgotPasswordPrompt }) => {
+const PasswordFormInput = ({
+	password,
+	setPassword,
+	forgotPasswordPrompt,
+	confirm,
+}) => {
 	return (
 		<div className="form-control">
 			<label className="label">
-				<span className="label-text">Mot de passe</span>
+				<span className="label-text">
+					{confirm ? "Confirmez le mot de passe" : "Mot de passe"}
+				</span>
 			</label>
 			<input
 				type="password"
