@@ -48,8 +48,8 @@ const SignUp = () => {
 				<div className="text-center lg:text-left max-w-md">
 					<h1 className="text-5xl font-bold">Créer un compte</h1>
 					<p className="py-6">
-						Créer un compte Infernal vous permet d'accéder à des fonctionnalités
-						tel que le dashboard INFBOT.
+						Créer un compte Infernal vous permet d&apos;accéder à des
+						fonctionnalités tel que le dashboard INFBOT.
 					</p>
 				</div>
 				<div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
