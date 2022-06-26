@@ -2,8 +2,17 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-import router from "../config/router";
-import Footer from "./Footer";
+import NavbarMobileLink from "./navbar/NavbarMobileLink";
+import Footer from "./footer/Footer";
+
+import localRouter from "../config/router";
+
+const navbarMobileLinks = [
+	localRouter.home,
+	localRouter.infbot,
+	localRouter.jobs,
+	localRouter.auth.signin,
+];
 
 const Layout = ({ children }) => {
 	return (
@@ -13,8 +22,8 @@ const Layout = ({ children }) => {
 				id="nav-drawer"
 				type="checkbox"
 			/>
-			<div className="drawer-content flex flex-col">
-				<div className="w-full navbar bg-base-100 text-base-content lg:px-96 mb-16">
+			<div className="drawer-content flex flex-col h-screen">
+				<div className="w-full navbar bg-base-100 text-base-content lg:px-96 mb-16 sticky top-0 z-50 shadow-lg">
 					<div className="flex-none lg:hidden">
 						<label
 							className="btn btn-square btn-ghost text-xl"
@@ -24,37 +33,37 @@ const Layout = ({ children }) => {
 						</label>
 					</div>
 					<div className="flex-1 px-2 mx-2">
-						<Link href={router.home.path}>
+						<Link href={localRouter.home.path}>
 							<a className="text-2xl">Infernal</a>
 						</Link>
 					</div>
 					<div className="flex-none hidden lg:block">
 						<ul className="menu menu-horizontal gap-2">
 							<li>
-								<Link href={router.infbot.path}>
+								<Link href={localRouter.infbot.path}>
 									<button className="btn btn-ghost rounded-full">
-										{router.infbot.name}
+										{localRouter.infbot.name}
 									</button>
 								</Link>
 							</li>
 							<li>
-								<Link href={router.jobs.path}>
+								<Link href={localRouter.jobs.path}>
 									<button className="btn btn-ghost rounded-full">
-										{router.jobs.name}
+										{localRouter.jobs.name}
 									</button>
 								</Link>
 							</li>
 							<li>
-								<Link href={router.auth.signin.path}>
+								<Link href={localRouter.auth.signin.path}>
 									<button className="btn btn-primary text-primary-content rounded-full">
-										{router.auth.signin.name}
+										{localRouter.auth.signin.name}
 									</button>
 								</Link>
 							</li>
 						</ul>
 					</div>
 				</div>
-				<main>{children}</main>
+				<main className="flex-grow relative">{children}</main>
 				<Footer />
 			</div>
 			<div className="drawer-side">
@@ -63,26 +72,12 @@ const Layout = ({ children }) => {
 					htmlFor="nav-drawer"
 				></label>
 				<ul className="menu p-4 overflow-y-auto w-80 bg-base-100">
-					<li>
-						<Link href={router.home.path}>
-							<a>{router.home.name}</a>
-						</Link>
-					</li>
-					<li>
-						<Link href={router.infbot.path}>
-							<a>{router.infbot.name}</a>
-						</Link>
-					</li>
-					<li>
-						<Link href={router.jobs.path}>
-							<a>{router.jobs.name}</a>
-						</Link>
-					</li>
-					<li>
-						<Link href={router.auth.signin.path}>
-							<a>{router.auth.signin.name}</a>
-						</Link>
-					</li>
+					{navbarMobileLinks.map(el => (
+						<NavbarMobileLink
+							link={el}
+							key={el.name}
+						/>
+					))}
 				</ul>
 			</div>
 		</div>

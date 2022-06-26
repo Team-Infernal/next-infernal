@@ -1,4 +1,4 @@
-const router = {
+const localRouter = {
 	home: {
 		name: "Accueil",
 		path: "/",
@@ -14,17 +14,17 @@ const router = {
 	auth: {
 		signup: {
 			name: "Créer un compte",
-			path: "/auth/signup",
+			path: "/auth/sign-up",
 		},
 		signin: {
 			name: "Se connecter",
-			path: "/auth/signin",
+			path: "/auth/sign-in",
 		},
 		signout: {
 			name: "Se déconnecter",
-			path: "/auth/signout",
+			path: "/auth/sign-out",
 		},
 	},
 };
 
-export default router;
+export default localRouter;
