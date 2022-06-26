@@ -9,7 +9,7 @@ const LoggedIn = () => {
 
 	useEffect(() => {
 		if (!loading && !authUser) router.push("/");
-	}, [authUser, loading]);
+	}, [authUser, loading, router]);
 
 	console.log(authUser);
 
