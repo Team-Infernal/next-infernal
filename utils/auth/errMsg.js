@@ -16,6 +16,8 @@ const errors = {
 	"auth/invalid-email": "L'adresse mail est invalide.",
 	"auth/invalid-password": "Le mot de passe est invalide.",
 	"auth/missing-email": "Veuillez renseigner votre adresse mail.",
+	"auth/requires-recent-login":
+		"Cette opération nécessite que vous vous reconnectiez.",
 	"auth/user-not-found": "Votre adresse mail et/ou mot de passe est incorrect.",
 	"auth/wrong-password": "Mot de passe est incorrecte.",
 	default: "Une erreur est survenue. Veuillez réessayer.",

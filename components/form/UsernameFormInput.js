@@ -1,4 +1,4 @@
-const UsernameFormInput = ({ username, setUsername }) => {
+const UsernameFormInput = ({ username, setUsername, disabled }) => {
 	return (
 		<div className="form-control">
 			<label className="label">
@@ -10,6 +10,7 @@ const UsernameFormInput = ({ username, setUsername }) => {
 				onChange={event => setUsername(event.target.value)}
 				placeholder="John"
 				className="input input-bordered input-primary"
+				disabled={disabled && "disabled"}
 			/>
 		</div>
 	);

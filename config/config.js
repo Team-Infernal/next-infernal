@@ -5,7 +5,12 @@ const config = {
 	footer: [
 		{
 			name: "À propos",
-			data: [localRouter.home, localRouter.infbot, localRouter.jobs],
+			data: [
+				localRouter.home,
+				localRouter.infbot,
+				localRouter.jobs,
+				localRouter.games,
+			],
 			isLocal: true,
 		},
 		{
