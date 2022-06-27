@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-import localRouter from "../../config/router";
-import { useAuth } from "../../context/AuthUserContext";
+import localRouter from "config/router";
 
-const SignOutButton = () => {
+import { useAuth } from "context/AuthUserContext";
+
+const SignOutButton = ({ className }) => {
 	const [loading, setLoading] = useState(false);
 	const { signOut } = useAuth();
 	const router = useRouter();
@@ -20,9 +21,9 @@ const SignOutButton = () => {
 
 	return (
 		<button
-			className={`btn btn-primary ${
+			className={`btn btn-primary btn-outline ${
 				loading && "loading"
-			} text-primary-content rounded-full`}
+			} text-primary-content rounded-full ${className}`}
 			onClick={() => onSignOutClick()}
 		>
 			{loading ? "Déconnexion..." : "Se déconnecter"}

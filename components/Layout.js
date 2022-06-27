@@ -1,9 +1,10 @@
-import NavbarMobileLink from "./navbar/NavbarMobileLink";
-import Footer from "./footer/Footer";
+import { useRef } from "react";
 
-import Navbar from "./navbar/Navbar";
+import Navbar from "components/navbar/Navbar";
+import NavbarMobileLink from "components/navbar/NavbarMobileLink";
+import Footer from "components/footer/Footer";
 
-import localRouter from "../config/router";
+import localRouter from "config/router";
 
 const navbarMobileLinks = [
 	localRouter.home,
@@ -13,16 +14,23 @@ const navbarMobileLinks = [
 ];
 
 const Layout = ({ children }) => {
+	const drawerCheckbox = useRef(null);
+
+	const closeDrawer = () => {
+		drawerCheckbox.current.checked = false;
+	};
+
 	return (
 		<div className="drawer">
 			<input
 				className="drawer-toggle"
 				id="nav-drawer"
+				ref={drawerCheckbox}
 				type="checkbox"
 			/>
 			<div className="drawer-content flex flex-col h-screen">
 				<Navbar />
-				<main className="flex-grow relative">{children}</main>
+				<main className="flex-grow relative px-8 lg:px-96">{children}</main>
 				<Footer />
 			</div>
 			<div className="drawer-side">
@@ -33,8 +41,9 @@ const Layout = ({ children }) => {
 				<ul className="menu p-4 overflow-y-auto w-80 bg-base-100">
 					{navbarMobileLinks.map(el => (
 						<NavbarMobileLink
-							link={el}
+							closeDrawer={closeDrawer}
 							key={el.name}
+							link={el}
 						/>
 					))}
 				</ul>

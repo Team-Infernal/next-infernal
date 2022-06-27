@@ -1,7 +1,7 @@
-import FooterInfo from "./FooterInfo";
-import FooterColumns from "./FooterColumns";
+import FooterInfo from "components/footer/FooterInfo";
+import FooterColumns from "components/footer/FooterColumns";
 
-import config from "../../config/config";
+import config from "config/config";
 
 const Footer = () => {
 	return (

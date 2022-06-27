@@ -1,4 +1,4 @@
-import FooterColumn from "./FooterColumn";
+import FooterColumn from "components/footer/FooterColumn";
 
 const FooterColumns = ({ columns }) => {
 	return columns.map(column => (

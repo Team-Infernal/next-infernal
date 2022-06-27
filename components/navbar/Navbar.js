@@ -2,17 +2,15 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-import NavbarLinks from "./NavbarLinks";
-import SignInButton from "../buttons/SignInButton";
-import SignOutButton from "../buttons/SignOutButton";
+import NavbarLinks from "components/navbar/NavbarLinks";
+import RouteButton from "components/buttons/RouteButton";
 
-import { useAuth } from "../../context/AuthUserContext";
-import config from "../../config/config";
-import localRouter from "../../config/router";
+import { useAuth } from "context/AuthUserContext";
+import config from "config/config";
+import localRouter from "config/router";
 
 const Navbar = () => {
-	const { authUser, loading: authLoading } = useAuth();
-	console.log(authUser);
+	const { authUser } = useAuth();
 
 	return (
 		<div className="w-full navbar bg-base-100 text-base-content lg:px-96 mb-16 sticky top-0 z-50 shadow-lg">
@@ -32,7 +30,13 @@ const Navbar = () => {
 			<div className="flex-none hidden lg:block">
 				<ul className="menu menu-horizontal gap-2">
 					<NavbarLinks data={config.navbar} />
-					<li>{!authUser ? <SignInButton /> : <SignOutButton />}</li>
+					<li>
+						{authUser === null ? (
+							<RouteButton route={localRouter.auth.signin} />
+						) : (
+							<RouteButton route={localRouter.account} />
+						)}
+					</li>
 				</ul>
 			</div>
 		</div>

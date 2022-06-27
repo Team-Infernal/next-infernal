@@ -1,4 +1,4 @@
-import NavbarLink from "./NavbarLink";
+import NavbarLink from "components/navbar/NavbarLink";
 
 const NavbarLinks = ({ data }) => {
 	return (

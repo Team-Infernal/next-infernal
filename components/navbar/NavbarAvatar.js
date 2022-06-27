@@ -17,6 +17,7 @@ const NavbarAvatar = ({ avatarUrl }) => {
 					height={32}
 					width={32}
 					src={avatarUrl}
+					alt="Avatar"
 				/>
 			</div>
 		</div>

@@ -1,10 +1,11 @@
 import { useState } from "react";
 
-import EmailFormInput from "../../components/form/EmailFormInput";
-import FormError from "../../components/form/FormError";
+import EmailFormInput from "components/form/EmailFormInput";
+import FormError from "components/form/FormError";
 
-import { useAuth } from "../../context/AuthUserContext";
-import errMsg from "../../utils/auth/errMsg";
+import { useAuth } from "context/AuthUserContext";
+
+import errMsg from "utils/auth/errMsg";
 
 const ForgotPassword = () => {
 	const [email, setEmail] = useState("");

@@ -1,4 +1,4 @@
-import localRouter from "./router";
+import localRouter from "config/router";
 
 const config = {
 	navbar: [localRouter.infbot, localRouter.jobs, localRouter.games],

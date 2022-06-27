@@ -3,12 +3,14 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 
-import EmailFormInput from "../../components/form/EmailFormInput";
-import PasswordFormInput from "../../components/form/PasswordFormInput";
-import FormError from "../../components/form/FormError";
-import { useAuth } from "../../context/AuthUserContext";
-import localRouter from "../../config/router";
-import errMsg from "../../utils/auth/errMsg";
+import EmailFormInput from "components/form/EmailFormInput";
+import PasswordFormInput from "components/form/PasswordFormInput";
+import FormError from "components/form/FormError";
+import { useAuth } from "context/AuthUserContext";
+
+import localRouter from "config/router";
+
+import errMsg from "utils/auth/errMsg";
 
 const SignIn = () => {
 	const [email, setEmail] = useState("");
@@ -21,7 +23,17 @@ const SignIn = () => {
 	const { signInWithEmailAndPassword } = useAuth();
 
 	const onSignInClick = async event => {
+		event.preventDefault();
 		setError(null);
+
+		if (!email) {
+			setError("Veuillez entrer votre adresse mail.");
+			return;
+		} else if (!password) {
+			setError("Veuillez entrer votre mot de passe.");
+			return;
+		}
+
 		setLoading(true);
 		signInWithEmailAndPassword(email, password)
 			.then(authUser => {
@@ -31,7 +43,6 @@ const SignIn = () => {
 				setError(errMsg(error.code));
 				setLoading(false);
 			});
-		event.preventDefault();
 	};
 
 	return (

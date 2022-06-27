@@ -20,7 +20,7 @@ const localRouter = {
 		requiresLogin: false,
 	},
 	account: {
-		name: "Compte",
+		name: "Mon Compte",
 		path: "/account",
 		requiresLogin: true,
 	},

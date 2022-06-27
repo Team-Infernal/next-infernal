@@ -2,15 +2,18 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-import EmailFormInput from "../../components/form/EmailFormInput";
-import PasswordFormInput from "../../components/form/PasswordFormInput";
-import FormError from "../../components/form/FormError";
+import EmailFormInput from "components/form/EmailFormInput";
+import UsernameFormInput from "components/form/UsernameFormInput";
+import PasswordFormInput from "components/form/PasswordFormInput";
+import FormError from "components/form/FormError";
 
-import { useAuth } from "../../context/AuthUserContext";
-import errMsg from "../../utils/auth/errMsg";
+import { useAuth } from "context/AuthUserContext";
+
+import errMsg from "utils/auth/errMsg";
 
 const SignUp = () => {
 	const [email, setEmail] = useState("");
+	const [username, setUsername] = useState("");
 	const [passwordOne, setPasswordOne] = useState("");
 	const [passwordTwo, setPasswordTwo] = useState("");
 	const [error, setError] = useState("");
@@ -18,28 +21,41 @@ const SignUp = () => {
 
 	const router = useRouter();
 
-	const { createUserWithEmailAndPassword, sendEmailVerification } = useAuth();
+	const {
+		createUserWithEmailAndPassword,
+		updateUsername,
+		sendEmailVerification,
+	} = useAuth();
 
 	const onSignUpClick = event => {
+		event.preventDefault();
 		setError(null);
-		setLoading(true);
 
-		if (passwordOne === passwordTwo) {
-			createUserWithEmailAndPassword(email, passwordOne)
-				.then(authUser => {
-					sendEmailVerification();
-					router.push("/account");
-				})
-				.catch(error => {
-					setError(errMsg(error.code));
-					setLoading(false);
-				});
-		} else {
+		if (!email) {
+			setError("Veuillez entrer votre adresse mail.");
+			return;
+		} else if (!username) {
+			setError("Veuillez entrer un nom d'utilisateur.");
+			return;
+		} else if (!passwordOne || !passwordTwo) {
+			setError("Veuillez entrer votre mot de passe.");
+			return;
+		} else if (passwordOne !== passwordTwo) {
 			setError("Les mots de passe ne correspondent pas.");
-			setLoading(false);
+			return;
 		}
 
-		event.preventDefault();
+		setLoading(true);
+		createUserWithEmailAndPassword(email, passwordOne, username)
+			.then(authUser => {
+				updateUsername(username);
+				sendEmailVerification();
+				router.push("/account");
+			})
+			.catch(error => {
+				setError(errMsg(error.code));
+				setLoading(false);
+			});
 	};
 
 	return (
@@ -57,6 +73,10 @@ const SignUp = () => {
 						<EmailFormInput
 							email={email}
 							setEmail={setEmail}
+						/>
+						<UsernameFormInput
+							username={username}
+							setUsername={setUsername}
 						/>
 						<PasswordFormInput
 							password={passwordOne}

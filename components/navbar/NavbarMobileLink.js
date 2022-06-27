@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-const NavbarMobileLink = ({ link }) => {
+const NavbarMobileLink = ({ link, closeDrawer }) => {
 	return (
 		<li>
 			<Link href={link.path}>
-				<a>{link.name}</a>
+				<a onClick={() => closeDrawer()}>{link.name}</a>
 			</Link>
 		</li>
 	);

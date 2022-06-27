@@ -8,7 +8,7 @@ const EmailFormInput = ({ email, setEmail }) => {
 				type="text"
 				value={email}
 				onChange={event => setEmail(event.target.value)}
-				placeholder="exemple@exemple.fr"
+				placeholder="john@exemple.fr"
 				className="input input-bordered input-primary"
 			/>
 		</div>
