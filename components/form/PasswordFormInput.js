@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import localRouter from "config/router";
+
 const PasswordFormInput = ({
 	password,
 	setPassword,
@@ -22,9 +24,9 @@ const PasswordFormInput = ({
 			/>
 			{forgotPasswordPrompt && (
 				<label className="label">
-					<Link href="/auth/forgot-password">
+					<Link href={localRouter.auth.forgotPassword.path}>
 						<a className="label-text-alt link link-hover">
-							Mot de passe oublié?
+							{localRouter.auth.forgotPassword.name}
 						</a>
 					</Link>
 				</label>

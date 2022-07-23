@@ -1,22 +1,25 @@
+import { signOut } from "firebase/auth";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
 import localRouter from "config/router";
 
-import { useAuth } from "context/AuthUserContext";
+import { auth } from "lib/firebase2";
 
 const SignOutButton = ({ className }) => {
 	const [loading, setLoading] = useState(false);
-	const { signOut } = useAuth();
 	const router = useRouter();
 
 	const onSignOutClick = async () => {
 		setLoading(true);
 
-		await signOut();
-		router.push(localRouter.home.path);
-
-		setLoading(false);
+		signOut(auth)
+			.then(() => {
+				router.push(localRouter.home.path);
+			})
+			.catch(() => {
+				setLoading(false);
+			});
 	};
 
 	return (

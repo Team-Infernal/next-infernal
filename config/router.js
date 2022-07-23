@@ -27,17 +27,22 @@ const localRouter = {
 	auth: {
 		signup: {
 			name: "Créer un compte",
-			path: "/auth/sign-up",
+			path: "/sign-up",
 			requiresLogin: false,
 		},
 		signin: {
 			name: "Se connecter",
-			path: "/auth/sign-in",
+			path: "/sign-in",
 			requiresLogin: false,
 		},
 		signout: {
 			name: "Se déconnecter",
-			path: "/auth/sign-out",
+			path: "/sign-out",
+			requiresLogin: false,
+		},
+		forgotPassword: {
+			name: "Mot de passe oublié",
+			path: "/forgot-password",
 			requiresLogin: false,
 		},
 	},

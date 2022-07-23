@@ -1,3 +1,4 @@
+import { getAuth } from "firebase/auth";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -5,12 +6,11 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import NavbarLinks from "components/navbar/NavbarLinks";
 import RouteButton from "components/buttons/RouteButton";
 
-import { useAuth } from "context/AuthUserContext";
 import config from "config/config";
 import localRouter from "config/router";
 
 const Navbar = () => {
-	const { authUser } = useAuth();
+	const { currentUser: user } = getAuth();
 
 	return (
 		<div className="w-full navbar bg-base-100 text-base-content lg:px-96 mb-16 sticky top-0 z-50 shadow-lg">
@@ -31,7 +31,7 @@ const Navbar = () => {
 				<ul className="menu menu-horizontal gap-2">
 					<NavbarLinks data={config.navbar} />
 					<li>
-						{authUser === null ? (
+						{user === null ? (
 							<RouteButton route={localRouter.auth.signin} />
 						) : (
 							<RouteButton route={localRouter.account} />

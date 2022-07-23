@@ -1,3 +1,4 @@
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -6,9 +7,10 @@ import Link from "next/link";
 import EmailFormInput from "components/form/EmailFormInput";
 import PasswordFormInput from "components/form/PasswordFormInput";
 import FormError from "components/form/FormError";
-import { useAuth } from "context/AuthUserContext";
 
 import localRouter from "config/router";
+
+import { auth } from "lib/firebase2";
 
 import errMsg from "utils/auth/errMsg";
 
@@ -19,8 +21,6 @@ const SignIn = () => {
 	const [loading, setLoading] = useState(false);
 
 	const router = useRouter();
-
-	const { signInWithEmailAndPassword } = useAuth();
 
 	const onSignInClick = async event => {
 		event.preventDefault();
@@ -35,8 +35,8 @@ const SignIn = () => {
 		}
 
 		setLoading(true);
-		signInWithEmailAndPassword(email, password)
-			.then(authUser => {
+		signInWithEmailAndPassword(auth, email, password)
+			.then(() => {
 				router.push(localRouter.account.path);
 			})
 			.catch(error => {
@@ -80,7 +80,7 @@ const SignIn = () => {
 									{loading ? "Connexion..." : "Se connecter"}
 								</button>
 								<label className="label justify-center">
-									<Link href="/auth/sign-up">
+									<Link href={localRouter.auth.signup.path}>
 										<a className="label-text-alt link link-hover">
 											Pas encore de compte?
 										</a>

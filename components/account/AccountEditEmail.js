@@ -1,19 +1,21 @@
-import { useContext, useState } from "react";
+import { updateEmail, sendEmailVerification } from "firebase/auth";
+import { useState } from "react";
 
 import EmailFormInput from "components/form/EmailFormInput";
 import AlertErrorList from "components/alerts/AlertErrorList";
 
+import { auth } from "lib/firebase2";
+
 import { verifyEmail } from "utils/formVerification";
 import errMsg from "utils/auth/errMsg";
-
-import { useAuth } from "context/AuthUserContext";
 
 const AccountEditEmail = ({ currentEmail }) => {
 	const [email, setEmail] = useState(currentEmail);
 	const [editingEmail, setEditingEmail] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [errors, setErrors] = useState([]);
-	const { authUser, updateEmail } = useAuth();
+
+	const user = auth.currentUser;
 
 	const onEditEmailClick = async () => {
 		setErrors([]);
@@ -37,8 +39,9 @@ const AccountEditEmail = ({ currentEmail }) => {
 
 		setLoading(true);
 
-		await updateEmail(email)
-			.then(() => {
+		await updateEmail(user, email)
+			.then(async () => {
+				await sendEmailVerification(user);
 				window.location.reload(false);
 			})
 			.catch(error => {
@@ -59,7 +62,7 @@ const AccountEditEmail = ({ currentEmail }) => {
 						email={email}
 						setEmail={setEmail}
 						disabled={!editingEmail}
-						isVerified={authUser.emailVerified}
+						isVerified={user.emailVerified}
 					/>
 				</div>
 				<button

@@ -1,9 +1,10 @@
+import { sendPasswordResetEmail } from "firebase/auth";
 import { useState } from "react";
 
 import EmailFormInput from "components/form/EmailFormInput";
 import FormError from "components/form/FormError";
 
-import { useAuth } from "context/AuthUserContext";
+import { auth } from "lib/firebase2";
 
 import errMsg from "utils/auth/errMsg";
 
@@ -13,14 +14,12 @@ const ForgotPassword = () => {
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
 
-	const { sendPasswordResetEmail } = useAuth();
-
 	const onContinueClick = async event => {
 		setError("");
 		setSuccess(false);
 		setLoading(true);
 
-		sendPasswordResetEmail(email)
+		sendPasswordResetEmail(auth, email)
 			.then(() => {
 				setSuccess(true);
 				setLoading(false);

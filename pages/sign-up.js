@@ -1,3 +1,8 @@
+import {
+	createUserWithEmailAndPassword,
+	updateProfile,
+	sendEmailVerification,
+} from "firebase/auth";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -7,7 +12,9 @@ import UsernameFormInput from "components/form/UsernameFormInput";
 import PasswordFormInput from "components/form/PasswordFormInput";
 import FormError from "components/form/FormError";
 
-import { useAuth } from "context/AuthUserContext";
+import localRouter from "config/router";
+
+import { auth } from "lib/firebase2";
 
 import errMsg from "utils/auth/errMsg";
 
@@ -20,12 +27,6 @@ const SignUp = () => {
 	const [loading, setLoading] = useState(false);
 
 	const router = useRouter();
-
-	const {
-		createUserWithEmailAndPassword,
-		updateUsername,
-		sendEmailVerification,
-	} = useAuth();
 
 	const onSignUpClick = event => {
 		event.preventDefault();
@@ -46,11 +47,14 @@ const SignUp = () => {
 		}
 
 		setLoading(true);
-		createUserWithEmailAndPassword(email, passwordOne, username)
-			.then(authUser => {
-				updateUsername(username);
-				sendEmailVerification();
-				router.push("/account");
+		createUserWithEmailAndPassword(auth, email, passwordOne)
+			.then(async userCredential => {
+				const user = userCredential.user;
+
+				await updateProfile(user, { displayName: username });
+				sendEmailVerification(user);
+
+				router.push("/");
 			})
 			.catch(error => {
 				setError(errMsg(error.code));
@@ -98,7 +102,7 @@ const SignUp = () => {
 								{loading ? "Inscription en cours..." : "S'inscrire"}
 							</button>
 							<label className="label justify-center">
-								<Link href="/auth/sign-in">
+								<Link href={localRouter.auth.signin.path}>
 									<a className="label-text-alt link link-hover">
 										Vous avez déjà un compte?
 									</a>

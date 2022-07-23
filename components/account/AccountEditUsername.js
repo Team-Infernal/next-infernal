@@ -1,9 +1,10 @@
+import { updateProfile } from "firebase/auth";
 import { useState } from "react";
 
 import UsernameFormInput from "components/form/UsernameFormInput";
 import AlertErrorList from "components/alerts/AlertErrorList";
 
-import { useAuth } from "context/AuthUserContext";
+import { auth } from "lib/firebase2";
 
 import { verifyUsername } from "utils/formVerification";
 
@@ -12,7 +13,8 @@ const AccountEditUsername = ({ currentUsername }) => {
 	const [editingUsername, setEditingUsername] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [errors, setErrors] = useState([]);
-	const { updateUsername } = useAuth();
+
+	const user = auth.currentUser;
 
 	const onEditUsernameClick = async () => {
 		setErrors([]);
@@ -35,7 +37,9 @@ const AccountEditUsername = ({ currentUsername }) => {
 		}
 
 		setLoading(true);
-		await updateUsername(username);
+
+		await updateProfile(user, { displayName: username });
+
 		setLoading(false);
 		setEditingUsername(false);
 		window.location.reload(false);
