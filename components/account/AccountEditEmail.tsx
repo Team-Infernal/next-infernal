@@ -1,32 +1,31 @@
 import { updateEmail, sendEmailVerification } from "firebase/auth";
-import { useRouter } from "next/router";
+import { useAuthUser } from "next-firebase-auth";
 import { useState } from "react";
 
 import EmailFormInput from "components/form/EmailFormInput";
 import AlertErrorList from "components/alerts/AlertErrorList";
 
-import { auth } from "lib/firebase";
-
 import { verifyEmail } from "utils/formVerification";
 import errMsg from "utils/auth/errMsg";
 
-const AccountEditEmail = ({ currentEmail }: { currentEmail: string }) => {
-	const router = useRouter();
+const AccountEditEmail = () => {
+	const user = useAuthUser();
+	const currentEmail = user.email || "";
 
-	const [email, setEmail] = useState<string>(currentEmail);
-	const [editingEmail, setEditingEmail] = useState<boolean>(false);
-	const [loading, setLoading] = useState<boolean>(false);
+	const [email, setEmail] = useState(currentEmail);
+	const [editingEmail, setEditingEmail] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [errors, setErrors] = useState<string[]>([]);
-
-	const user = auth.currentUser;
-
-	if (user === null) {
-		router.push("/");
-		return <></>;
-	}
 
 	const onEditEmailClick = async () => {
 		setErrors([]);
+
+		const { firebaseUser } = user;
+
+		if (!email || !firebaseUser) {
+			setEditingEmail(false);
+			return;
+		}
 
 		if (!editingEmail) {
 			setEditingEmail(true);
@@ -47,9 +46,9 @@ const AccountEditEmail = ({ currentEmail }: { currentEmail: string }) => {
 
 		setLoading(true);
 
-		await updateEmail(user, email)
+		await updateEmail(firebaseUser, email)
 			.then(async () => {
-				await sendEmailVerification(user);
+				await sendEmailVerification(firebaseUser);
 				window.location.reload();
 			})
 			.catch(error => {
@@ -64,7 +63,7 @@ const AccountEditEmail = ({ currentEmail }: { currentEmail: string }) => {
 
 	return (
 		<>
-			<div className="flex gap-4">
+			<div className="flex flex-col sm:flex-row gap-4">
 				<div className="flex-grow">
 					<EmailFormInput
 						email={email}
@@ -77,7 +76,7 @@ const AccountEditEmail = ({ currentEmail }: { currentEmail: string }) => {
 					className={[
 						"btn",
 						"btn-primary",
-						"self-end",
+						"sm:self-end",
 						!editingEmail && "btn-outline",
 						loading && "loading",
 					].join(" ")}

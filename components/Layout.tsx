@@ -32,7 +32,9 @@ const Layout = ({ children }: React.PropsWithChildren<{}>) => {
 			/>
 			<div className="drawer-content flex flex-col h-screen">
 				<Navbar />
-				<main className="flex-grow relative px-8 lg:px-96">{children}</main>
+				<main className="flex-grow relative px-8 lg:px-48 xl:px-64 2xl:px-96">
+					{children}
+				</main>
 				<Footer />
 			</div>
 			<div className="drawer-side">

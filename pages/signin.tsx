@@ -1,4 +1,9 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+	withAuthUser,
+	withAuthUserTokenSSR,
+	AuthAction,
+} from "next-firebase-auth";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
@@ -7,6 +12,7 @@ import { useState } from "react";
 import EmailFormInput from "components/form/EmailFormInput";
 import PasswordFormInput from "components/form/PasswordFormInput";
 import FormError from "components/form/FormError";
+import Loading from "components/Loading";
 
 import localRouter from "config/router";
 
@@ -95,4 +101,13 @@ const SignIn = () => {
 	);
 };
 
-export default SignIn;
+const getServerSideProps = withAuthUserTokenSSR({
+	whenAuthed: AuthAction.REDIRECT_TO_APP,
+})();
+
+export default withAuthUser({
+	whenAuthed: AuthAction.REDIRECT_TO_APP,
+	whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
+	LoaderComponent: Loading,
+})(SignIn);
+export { getServerSideProps };

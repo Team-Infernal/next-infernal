@@ -5,7 +5,7 @@ import config from "config/config";
 
 const Footer = () => {
 	return (
-		<footer className="footer mt-16 p-10 lg:px-96 bg-primary text-primary-content">
+		<footer className="footer mt-16 p-10 xl:px-64 2xl:px-96 bg-primary text-primary-content">
 			<FooterInfo />
 			<FooterColumns columns={config.footer} />
 		</footer>

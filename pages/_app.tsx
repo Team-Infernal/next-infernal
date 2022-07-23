@@ -4,6 +4,9 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 
 import Layout from "components/Layout";
 
+import initAuth from "lib/initAuth";
+initAuth();
+
 import "styles/globals.css";
 config.autoAddCss = false;
 

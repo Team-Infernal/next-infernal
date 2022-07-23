@@ -1,16 +1,12 @@
-import type { User } from "firebase/auth";
-
 import AccountEditUsername from "components/account/AccountEditUsername";
 import AccountEditEmail from "components/account/AccountEditEmail";
 
-const AccountInfoCard = ({ user }: { user: User }) => {
+const AccountInfoCard = () => {
 	return (
-		<div className="card w-full max-w-lg shadow-2xl bg-base-100">
+		<div className="card w-full w-100 sm:max-w-lg shadow-2xl bg-base-100">
 			<div className="card-body">
-				{user.displayName !== null && (
-					<AccountEditUsername currentUsername={user.displayName} />
-				)}
-				{user.email !== null && <AccountEditEmail currentEmail={user.email} />}
+				<AccountEditUsername />
+				<AccountEditEmail />
 			</div>
 		</div>
 	);

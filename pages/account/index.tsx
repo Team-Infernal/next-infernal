@@ -1,36 +1,35 @@
-import { useRouter } from "next/router";
+import {
+	useAuthUser,
+	withAuthUser,
+	withAuthUserTokenSSR,
+	AuthAction,
+} from "next-firebase-auth";
 
 import AccountEmailNotVerified from "components/account/AccountEmailNotVerified";
 import SignOutButton from "components/buttons/SignOutButton";
 import AccountInfoCard from "components/account/AccountInfoCard";
-
-import localRouter from "config/router";
-
-import { auth } from "lib/firebase";
+import Loading from "components/Loading";
 
 const Account = () => {
-	const router = useRouter();
-
-	const user = auth.currentUser;
-
-	if (user === null) {
-		router.push(localRouter.auth.signin.path);
-		return <></>;
-	}
+	const AuthUser = useAuthUser();
 
 	return (
-		<div className="h-[100%] flex flex-col gap-16">
-			{!user.emailVerified && <AccountEmailNotVerified user={user} />}
+		<div className="flex flex-col gap-16">
+			{!AuthUser.emailVerified && <AccountEmailNotVerified />}
 			<span className="text-3xl">
-				Bienvenue, <strong>{user.displayName}</strong>
+				👋 Bienvenue, <strong>{AuthUser.displayName}</strong>
 			</span>
-			<AccountInfoCard user={user} />
-			<SignOutButton
-				auth={auth}
-				className="self-center"
-			/>
+			<AccountInfoCard />
+			<SignOutButton signOut={AuthUser.signOut} />
 		</div>
 	);
 };
 
-export default Account;
+const getServerSideProps = withAuthUserTokenSSR()();
+
+export default withAuthUser({
+	whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
+	whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
+	LoaderComponent: Loading,
+})(Account);
+export { getServerSideProps };

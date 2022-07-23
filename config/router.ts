@@ -22,21 +22,29 @@ const localRouter = {
 	auth: {
 		signup: {
 			name: "Créer un compte",
-			path: "/sign-up",
+			path: "/signup",
 		},
 		signin: {
 			name: "Se connecter",
-			path: "/sign-in",
+			path: "/signin",
 		},
 		signout: {
 			name: "Se déconnecter",
-			path: "/sign-out",
+			path: "/signout",
 		},
 		forgotPassword: {
 			name: "Mot de passe oublié",
 			path: "/forgot-password",
 		},
 	},
+	api: {
+		signin: {
+			path: "/api/v1/sign-in"
+		},
+		signout: {
+			path: "/api/v1/sign-out"
+		}
+	}
 };
 
 export default localRouter;

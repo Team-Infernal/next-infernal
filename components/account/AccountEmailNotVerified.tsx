@@ -1,23 +1,20 @@
-import { sendEmailVerification, User } from "firebase/auth";
-import { useRouter } from "next/router";
+import { sendEmailVerification } from "firebase/auth";
+import { useAuthUser } from "next-firebase-auth";
 import { useState } from "react";
 
-const EmailNotVerified = ({ user }: { user: User }) => {
-	const router = useRouter();
+const EmailNotVerified = () => {
+	const user = useAuthUser();
+	const { firebaseUser } = user;
 
 	const [emailSent, setEmailSent] = useState("");
 	const [resendEmailText, setResendEmailText] = useState(
 		"Renvoyez un mail de vérification"
 	);
 
-	if (user === null) {
-		router.push("/");
-		return <></>;
-	}
-
 	const onSendVerificationEmailClick = () => {
+		if (!firebaseUser) return;
 		setResendEmailText("");
-		sendEmailVerification(user)
+		sendEmailVerification(firebaseUser)
 			.then(() => {
 				setEmailSent("sent");
 			})

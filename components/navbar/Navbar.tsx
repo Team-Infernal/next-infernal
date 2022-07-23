@@ -1,3 +1,4 @@
+import { useAuthUser, withAuthUser } from "next-firebase-auth";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -8,13 +9,12 @@ import RouteButton from "components/buttons/RouteButton";
 import config from "config/config";
 import localRouter from "config/router";
 
-import { auth } from "lib/firebase";
-
 const Navbar = () => {
-	const user = auth.currentUser;
+	const user = useAuthUser();
+	const { firebaseUser } = user;
 
 	return (
-		<div className="w-full navbar bg-base-100 text-base-content lg:px-96 mb-16 sticky top-0 z-50 shadow-lg">
+		<div className="w-full navbar bg-base-100 text-base-content xl:px-64 2xl:px-96 mb-16 sticky top-0 z-50 shadow-lg">
 			<div className="flex-none lg:hidden">
 				<label
 					className="btn btn-square btn-ghost text-xl"
@@ -32,7 +32,7 @@ const Navbar = () => {
 				<ul className="menu menu-horizontal gap-2">
 					<NavbarLinks data={config.navbar} />
 					<li>
-						{user === null ? (
+						{firebaseUser === null ? (
 							<RouteButton route={localRouter.auth.signin} />
 						) : (
 							<RouteButton route={localRouter.account} />
@@ -44,4 +44,4 @@ const Navbar = () => {
 	);
 };
 
-export default Navbar;
+export default withAuthUser()(Navbar);

@@ -1,37 +1,27 @@
 import { updateProfile } from "firebase/auth";
-import { useRouter } from "next/router";
+import { useAuthUser } from "next-firebase-auth";
 import { useState } from "react";
 
 import UsernameFormInput from "components/form/UsernameFormInput";
 import AlertErrorList from "components/alerts/AlertErrorList";
 
-import { auth } from "lib/firebase";
-
 import { verifyUsername } from "utils/formVerification";
 
-const AccountEditUsername = ({
-	currentUsername,
-}: {
-	currentUsername: string;
-}) => {
-	const router = useRouter();
+const AccountEditUsername = () => {
+	const user = useAuthUser();
+	const currentUsername = user.displayName || "";
 
-	const [username, setUsername] = useState<string>(currentUsername);
-	const [editingUsername, setEditingUsername] = useState<boolean>(false);
-	const [loading, setLoading] = useState<boolean>(false);
+	const [username, setUsername] = useState(currentUsername);
+	const [editingUsername, setEditingUsername] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [errors, setErrors] = useState<string[]>([]);
-
-	const user = auth.currentUser;
-
-	if (user === null) {
-		router.push("/");
-		return <></>;
-	}
 
 	const onEditUsernameClick = async () => {
 		setErrors([]);
 
-		if (!editingUsername) {
+		const { firebaseUser } = user;
+
+		if (!editingUsername || !firebaseUser) {
 			setEditingUsername(true);
 			return;
 		}
@@ -50,7 +40,7 @@ const AccountEditUsername = ({
 
 		setLoading(true);
 
-		await updateProfile(user, { displayName: username });
+		await updateProfile(firebaseUser, { displayName: username });
 
 		setLoading(false);
 		setEditingUsername(false);
@@ -59,7 +49,7 @@ const AccountEditUsername = ({
 
 	return (
 		<>
-			<div className="flex gap-4">
+			<div className="flex flex-col sm:flex-row gap-4">
 				<div className="flex-grow">
 					<UsernameFormInput
 						username={username}
@@ -71,7 +61,7 @@ const AccountEditUsername = ({
 					className={[
 						"btn",
 						"btn-primary",
-						"self-end",
+						"sm:self-end",
 						!editingUsername && "btn-outline",
 						loading && "loading",
 					].join(" ")}
