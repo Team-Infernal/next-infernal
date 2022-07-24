@@ -19,7 +19,7 @@ const errors: tErrors = {
 	"auth/requires-recent-login":
 		"Cette opération nécessite que vous vous reconnectiez.",
 	"auth/user-not-found": "Votre adresse mail et/ou mot de passe est incorrect.",
-	"auth/wrong-password": "Mot de passe est incorrecte.",
+	"auth/wrong-password": "Votre adresse mail et/ou mot de passe est incorrect.",
 	default: "Une erreur est survenue. Veuillez réessayer.",
 };
 

@@ -7,11 +7,13 @@ const PasswordFormInput = ({
 	setPassword,
 	forgotPasswordPrompt,
 	confirm,
+	isError,
 }: {
 	password: string;
 	setPassword: React.Dispatch<React.SetStateAction<string>>;
 	forgotPasswordPrompt?: boolean;
 	confirm?: boolean;
+	isError?: boolean;
 }) => {
 	return (
 		<div className="form-control">
@@ -25,7 +27,11 @@ const PasswordFormInput = ({
 				value={password}
 				onChange={event => setPassword(event.target.value)}
 				placeholder="************"
-				className="input input-bordered input-primary"
+				className={[
+					"input",
+					"input-bordered",
+					`input-${isError ? "error" : "primary"}`,
+				].join(" ")}
 			/>
 			{forgotPasswordPrompt && (
 				<label className="label">

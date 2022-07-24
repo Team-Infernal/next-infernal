@@ -24,6 +24,8 @@ const SignIn = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
+	const [emailError, setEmailError] = useState(false);
+	const [passwordError, setPasswordError] = useState(false);
 	const [loading, setLoading] = useState(false);
 
 	const router = useRouter();
@@ -31,12 +33,21 @@ const SignIn = () => {
 	const onSignInClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 		setError("");
+		setEmailError(false);
+		setPasswordError(false);
 
-		if (!email) {
+		if (!email && !password) {
+			setError("Veuillez entrer votre adresse mail et mot de passe.");
+			setEmailError(true);
+			setPasswordError(true);
+			return;
+		} else if (!email) {
 			setError("Veuillez entrer votre adresse mail.");
+			setEmailError(true);
 			return;
 		} else if (!password) {
 			setError("Veuillez entrer votre mot de passe.");
+			setPasswordError(true);
 			return;
 		}
 
@@ -47,6 +58,8 @@ const SignIn = () => {
 			})
 			.catch(error => {
 				setError(errMsg(error.code));
+				setEmailError(true);
+				setPasswordError(true);
 				setLoading(false);
 			});
 	};
@@ -69,18 +82,22 @@ const SignIn = () => {
 							<EmailFormInput
 								email={email}
 								setEmail={setEmail}
+								isError={emailError}
 							/>
 							<PasswordFormInput
 								password={password}
 								setPassword={setPassword}
 								forgotPasswordPrompt={true}
+								isError={passwordError}
 							/>
 							{error && <FormError error={error} />}
 							<div className="form-control mt-3">
 								<button
-									className={`btn btn-${loading ? "disabled" : "primary"} ${
-										loading && "loading"
-									}`}
+									className={[
+										"btn",
+										`btn-${loading ? "disabled" : "primary"}`,
+										loading && "loading",
+									].join(" ")}
 									onClick={event => onSignInClick(event)}
 								>
 									{loading ? "Connexion..." : "Se connecter"}

@@ -5,6 +5,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 import NavbarLinks from "components/navbar/NavbarLinks";
 import RouteButton from "components/buttons/RouteButton";
+import ThemeToggleButton from "components/buttons/ThemeToggleButton";
 
 import config from "config/config";
 import localRouter from "config/router";
@@ -38,6 +39,7 @@ const Navbar = () => {
 							<RouteButton route={localRouter.account} />
 						)}
 					</li>
+					<ThemeToggleButton />
 				</ul>
 			</div>
 		</div>
