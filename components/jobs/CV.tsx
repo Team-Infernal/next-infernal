@@ -1,7 +1,7 @@
 import Card from "components/cards/Card";
 
 const CV = ({ cv }: { cv: CVDoc }) => {
-	const { userId, fullName, title, description, link } = cv;
+	const { fullName, title, description, link } = cv;
 
 	return (
 		<Card

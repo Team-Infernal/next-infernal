@@ -1,6 +1,5 @@
 type CVDoc = {
 	id: string;
-	userId: string;
 	fullName: string;
 	title: string;
 	description: string;

@@ -1,4 +1,5 @@
 import {
+	getAuth,
 	createUserWithEmailAndPassword,
 	updateProfile,
 	sendEmailVerification,
@@ -14,8 +15,6 @@ import FormError from "components/form/FormError";
 
 import localRouter from "config/router";
 
-import { auth } from "lib/firebase";
-
 import errMsg from "utils/auth/errMsg";
 
 const SignUp = () => {
@@ -27,6 +26,7 @@ const SignUp = () => {
 	const [loading, setLoading] = useState(false);
 
 	const router = useRouter();
+	const auth = getAuth();
 
 	const onSignUpClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();

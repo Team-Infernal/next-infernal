@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import {
 	withAuthUser,
 	withAuthUserTokenSSR,
@@ -16,8 +16,6 @@ import Loading from "components/Loading";
 
 import localRouter from "config/router";
 
-import { auth } from "lib/firebase";
-
 import errMsg from "utils/auth/errMsg";
 
 const SignIn = () => {
@@ -29,6 +27,7 @@ const SignIn = () => {
 	const [loading, setLoading] = useState(false);
 
 	const router = useRouter();
+	const auth = getAuth();
 
 	const onSignInClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();

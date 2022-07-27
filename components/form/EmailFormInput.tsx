@@ -7,12 +7,21 @@ const EmailFormInput = ({
 	disabled,
 	isVerified,
 	isError,
+	type = "primary",
 }: {
 	email: string;
 	setEmail: React.Dispatch<React.SetStateAction<string>>;
 	disabled?: boolean;
 	isVerified?: boolean;
 	isError?: boolean;
+	type?:
+		| "primary"
+		| "secondary"
+		| "accent"
+		| "info"
+		| "success"
+		| "warning"
+		| "error";
 }) => {
 	return (
 		<div className="form-control">
@@ -38,7 +47,7 @@ const EmailFormInput = ({
 				className={[
 					"input",
 					"input-bordered",
-					`input-${isError ? "error" : "primary"}`,
+					`input-${isError ? "error" : type}`,
 				].join(" ")}
 				disabled={disabled}
 			/>

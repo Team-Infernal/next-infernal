@@ -7,9 +7,6 @@ const Jobs = () => {
 			<span className="text-3xl">
 				<strong>Opportunités</strong>
 			</span>
-
-			<Introduction />
-
 			<div>
 				<CVList />
 			</div>

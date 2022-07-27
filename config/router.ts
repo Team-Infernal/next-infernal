@@ -39,12 +39,12 @@ const localRouter = {
 	},
 	api: {
 		signin: {
-			path: "/api/v1/auth/sign-in"
+			path: "/api/v1/auth/sign-in",
 		},
 		signout: {
-			path: "/api/v1/auth/sign-out"
-		}
-	}
+			path: "/api/v1/auth/sign-out",
+		},
+	},
 };
 
 export default localRouter;

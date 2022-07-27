@@ -1,21 +1,19 @@
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, getFirestore, query } from "firebase/firestore";
 import { NextApiRequest, NextApiResponse } from "next";
 
 import { v4 as uuidv4 } from "uuid";
 
-import { firestore } from "lib/firebase";
-
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	if (req.method === "GET") {
+		const firestore = getFirestore();
 		const snapshot = await getDocs(query(collection(firestore, "jobs")));
 
 		let docs: CVDoc[] = [];
 		snapshot.forEach(doc => {
-			const { userId, fullName, title, description, link } = doc.data();
+			const { fullName, title, description, link } = doc.data();
 
 			docs.push({
 				id: doc.id,
-				userId,
 				fullName,
 				title,
 				description,

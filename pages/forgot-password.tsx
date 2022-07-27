@@ -1,10 +1,8 @@
-import { sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { useState } from "react";
 
 import EmailFormInput from "components/form/EmailFormInput";
 import FormError from "components/form/FormError";
-
-import { auth } from "lib/firebase";
 
 import errMsg from "utils/auth/errMsg";
 
@@ -13,6 +11,8 @@ const ForgotPassword = () => {
 	const [success, setSuccess] = useState(false);
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
+
+	const auth = getAuth();
 
 	const onContinueClick = async (
 		event: React.MouseEvent<HTMLButtonElement>

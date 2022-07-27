@@ -8,8 +8,6 @@ const CVList = () => {
 	const [cvs, setCvs] = useState<CVDoc[]>([]);
 	const [loading, setLoading] = useState(false);
 
-	console.log(loading);
-
 	useEffect(() => {
 		setLoading(true);
 		fetch("/api/v1/jobs")
