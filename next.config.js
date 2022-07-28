@@ -5,10 +5,6 @@
  */
 const nextConfig = {
 	reactStrictMode: true,
-	i18n: {
-		locales: ["fr"],
-		defaultLocale: "fr",
-	},
 	images: {
 		domains: ["firebasestorage.googleapis.com"],
 	},
