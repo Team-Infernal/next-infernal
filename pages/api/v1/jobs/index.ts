@@ -1,7 +1,7 @@
-import { getFirebaseAdmin } from "next-firebase-auth";
+import { getFirebaseAdmin, verifyIdToken } from "next-firebase-auth";
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { getCvWhere, getCvById } from "utils/api/jobs";
+import { getAllCv, getCvWhere, getCvById } from "utils/api/jobs";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	/**
@@ -62,7 +62,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 		/**
 		 * NO QUERY
 		 */
-		const { code, success, data } = await getCvWhere("verified", "==", true);
+		const { code, success, data } = await getAllCv();
 
 		res.status(code).json({
 			success,
@@ -74,9 +74,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	 * POST REQUEST
 	 */
 	if (req.method === "POST") {
+		const token = req.headers.authorization;
+		const user = await verifyIdToken(token || "");
+		if (!token || !user.id) {
+			res.status(401).json({
+				message: "Unauthorized.",
+			});
+			return;
+		}
+
 		const dbAdmin = getFirebaseAdmin().firestore();
-		const { body } = req;
-		const { userId, fullName, title, description, link } = body;
+		const { title, description, link } = req.body;
+		const { id: userId, displayName: fullName } = user;
 
 		const newDoc = {
 			userId,

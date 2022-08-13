@@ -7,18 +7,21 @@ const SpaceWrapper = ({ isAdmin }: { isAdmin: boolean }) => {
 	const newSpaces = spaces.filter(space => isAdmin || !space.admin);
 	const [activeSpace, setActiveSpace] = useState(0);
 
-	const [CVs, setCVs] = useState([]);
+	const [CVs, setCVs] = useState<CVDoc[]>([]);
 
 	useEffect(() => {
 		if (isAdmin) {
-			fetch(
-				"/api/v1/jobs?" +
-					new URLSearchParams({
-						verified: "0",
-					})
-			)
+			fetch("/api/v1/jobs", {
+				method: "GET",
+			})
 				.then(res => res.json())
-				.then(data => setCVs(data.data));
+				.then(data => {
+					console.log(data);
+					const sortedData = data.data.sort(
+						(a: CVDoc, b: CVDoc) => a.uploaded < b.uploaded
+					);
+					setCVs(sortedData);
+				});
 		}
 	}, [isAdmin]);
 
@@ -39,7 +42,7 @@ const SpaceWrapper = ({ isAdmin }: { isAdmin: boolean }) => {
 			</div>
 			<div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
 				{newSpaces[activeSpace].name === "CVManagement"
-					? newSpaces[activeSpace]({ CVs })
+					? newSpaces[activeSpace]({ CVs, setCVs })
 					: newSpaces[activeSpace]({})}
 			</div>
 		</div>

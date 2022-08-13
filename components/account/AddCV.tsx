@@ -85,10 +85,13 @@ const AddCV = () => {
 			link: url.value,
 		};
 
+		const token = (await AuthUser.getIdToken()) || "";
+
 		await fetch("/api/v1/jobs", {
 			method: "POST",
 			body: JSON.stringify(bodyObj),
 			headers: {
+				Authorization: token,
 				"Content-Type": "application/json",
 			},
 		});

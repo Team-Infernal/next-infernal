@@ -1,56 +1,42 @@
-import {
-	useAuthUser,
-	withAuthUser,
-	withAuthUserTokenSSR,
-	AuthAction,
-} from "next-firebase-auth";
-import { useState } from "react";
-import Head from "next/head";
+import { AuthAction, withAuthUserTokenSSR } from "next-firebase-auth";
 
-import SpaceWrapper from "components/account/admin/SpaceWrapper";
-import Welcome from "components/account/Welcome";
-import EmailNotVerified from "components/account/EmailNotVerified";
-import InfoCard from "components/account/InfoCard";
-import AddAdmin from "components/account/AddAdmin";
-import AddCV from "components/account/AddCV";
+import AccountLayout from "components/account/Layout";
+import GeneralManagement from "components/account/spaces/GeneralManagement";
 import SignOutButton from "components/buttons/SignOutButton";
-import Loading from "components/Loading";
 
-const Account = () => {
-	const [isAdmin, setIsAdmin] = useState(false);
+type Props = {
+	name: string;
+	isAdmin: boolean;
+};
 
-	const user = useAuthUser();
-	const { firebaseUser } = user;
-
-	firebaseUser?.getIdTokenResult().then(idTokenResult => {
-		if (idTokenResult.claims.admin) {
-			setIsAdmin(true);
-		}
-	});
-
+const General = ({ name, isAdmin }: Props) => {
 	return (
 		<>
-			<Head>
-				<title>Mon compte • Infernal</title>
-			</Head>
-			<div className="flex flex-col gap-16">
-				{!user.emailVerified && <EmailNotVerified />}
-				<Welcome
-					name={user.displayName}
-					isAdmin={isAdmin}
-				/>
-				<SpaceWrapper isAdmin={isAdmin} />
-				<SignOutButton signOut={user.signOut} />
+			<AccountLayout
+				pageTitle="Mon compte • Infernal"
+				activeTab="general"
+				name={name}
+				isAdmin={isAdmin}
+			>
+				<GeneralManagement />
+			</AccountLayout>
+			<div className="flex justify-center pt-16">
+				<SignOutButton />
 			</div>
 		</>
 	);
 };
 
-const getServerSideProps = withAuthUserTokenSSR()();
+const getServerSideProps = withAuthUserTokenSSR({
+	whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+})(async ({ AuthUser }) => {
+	return {
+		props: {
+			name: AuthUser.displayName,
+			isAdmin: !!AuthUser.claims.admin,
+		},
+	};
+});
 
-export default withAuthUser({
-	whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
-	whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
-	LoaderComponent: Loading,
-})(Account);
+export default General;
 export { getServerSideProps };

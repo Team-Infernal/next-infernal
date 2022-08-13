@@ -18,3 +18,5 @@ type CVDocsResponse = {
 	success: boolean;
 	data: CVDoc[];
 };
+
+type AccountActiveTab = "general" | "admin-general" | "admin-cv";
