@@ -13,7 +13,12 @@ const CVList = () => {
 		fetch("/api/v1/jobs")
 			.then(response => response.json())
 			.then(data => {
-				setCvs(data.docs);
+				setCvs(data.data);
+				setLoading(false);
+			})
+			.catch(error => {
+				console.warn(error);
+				setCvs([]);
 				setLoading(false);
 			});
 	}, []);

@@ -1,6 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
+const inputTypes = {
+	primary: "input-primary",
+	secondary: "input-secondary",
+	accent: "input-accent",
+	info: "input-info",
+	success: "input-success",
+	warning: "input-warning",
+	error: "input-error",
+};
+
 const EmailFormInput = ({
 	email,
 	setEmail,
@@ -47,7 +57,7 @@ const EmailFormInput = ({
 				className={[
 					"input",
 					"input-bordered",
-					`input-${isError ? "error" : type}`,
+					isError ? "input-error" : inputTypes[type],
 				].join(" ")}
 				disabled={disabled}
 			/>

@@ -1,16 +1,17 @@
 import { useRef } from "react";
+import { useAuthUser, withAuthUser } from "next-firebase-auth";
 
 import Navbar from "components/navbar/Navbar";
 import NavbarMobileLink from "components/navbar/NavbarMobileLink";
 import Footer from "components/footer/Footer";
 
 import localRouter from "config/router";
+import ThemeToggleButton from "./buttons/ThemeToggleButton";
 
 const navbarMobileLinks = [
 	localRouter.home,
 	localRouter.infbot,
 	localRouter.jobs,
-	localRouter.auth.signin,
 ];
 
 const Layout = ({ children }: React.PropsWithChildren<{}>) => {
@@ -22,6 +23,8 @@ const Layout = ({ children }: React.PropsWithChildren<{}>) => {
 		}
 	};
 
+	const { firebaseUser } = useAuthUser();
+
 	return (
 		<div className="drawer">
 			<input
@@ -32,7 +35,7 @@ const Layout = ({ children }: React.PropsWithChildren<{}>) => {
 			/>
 			<div className="drawer-content flex flex-col h-screen">
 				<Navbar />
-				<main className="flex-grow relative px-8 lg:px-48 xl:px-64 2xl:px-96">
+				<main className="flex-grow relative px-8 lg:px-36 xl:px-54 2xl:px-72">
 					{children}
 				</main>
 				<Footer />
@@ -50,10 +53,24 @@ const Layout = ({ children }: React.PropsWithChildren<{}>) => {
 							link={el}
 						/>
 					))}
+					{firebaseUser === null ? (
+						<NavbarMobileLink
+							closeDrawer={closeDrawer}
+							link={localRouter.auth.signin}
+						/>
+					) : (
+						<NavbarMobileLink
+							closeDrawer={closeDrawer}
+							link={localRouter.account}
+						/>
+					)}
+					<div className="mt-auto">
+						<ThemeToggleButton />
+					</div>
 				</ul>
 			</div>
 		</div>
 	);
 };
 
-export default Layout;
+export default withAuthUser()(Layout);

@@ -1,12 +1,20 @@
 type CVDoc = {
 	id: string;
+	userId: string;
 	fullName: string;
 	title: string;
 	description: string;
 	link: string;
+	uploaded: number;
+	verified: boolean;
 };
 
 type CVDocResponse = {
 	success: boolean;
-	docs: CVDoc[];
+	data: CVDoc;
+};
+
+type CVDocsResponse = {
+	success: boolean;
+	data: CVDoc[];
 };

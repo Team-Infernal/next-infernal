@@ -55,4 +55,57 @@ const verifyEmail = (email: string) => {
 	};
 };
 
-export { verifyUsername, verifyPassword, verifyEmail };
+const verifyUrl = (url: string) => {
+	const urlRegex =
+		/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+	let errors = [];
+
+	if (!urlRegex.test(url)) {
+		errors.push("Cette adresse URL est invalide.");
+	}
+
+	return {
+		isValid: errors.length === 0,
+		errors,
+	};
+};
+
+const cvVerification = {
+	position: (value: string) => {
+		let errors = [];
+
+		if (value.length < 1) {
+			errors.push("Veuillez renseigner votre poste.");
+		}
+
+		if (value.length > 32) {
+			errors.push("Le poste ne doit pas dépasser 32 caractères.");
+		}
+
+		return {
+			isValid: errors.length === 0,
+			errors,
+		};
+	},
+
+	description: (value: string) => {
+		let errors = [];
+
+		if (value.length < 8 || value.length > 256) {
+			errors.push("La description doit contenir entre 8 et 256 caractères.");
+		}
+
+		return {
+			isValid: errors.length === 0,
+			errors,
+		};
+	},
+};
+
+export {
+	verifyUsername,
+	verifyPassword,
+	verifyEmail,
+	verifyUrl,
+	cvVerification,
+};

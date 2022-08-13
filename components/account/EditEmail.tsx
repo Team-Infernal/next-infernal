@@ -8,7 +8,7 @@ import AlertErrorList from "components/alerts/AlertErrorList";
 import { verifyEmail } from "utils/formVerification";
 import errMsg from "utils/auth/errMsg";
 
-const AccountEditEmail = () => {
+const EditEmail = () => {
 	const user = useAuthUser();
 	const currentEmail = user.email || "";
 
@@ -90,4 +90,4 @@ const AccountEditEmail = () => {
 	);
 };
 
-export default AccountEditEmail;
+export default EditEmail;

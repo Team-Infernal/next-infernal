@@ -16,7 +16,7 @@ const localRouter = {
 		path: "/games",
 	},
 	account: {
-		name: "Mon Compte",
+		name: "Mon compte",
 		path: "/account",
 	},
 	auth: {

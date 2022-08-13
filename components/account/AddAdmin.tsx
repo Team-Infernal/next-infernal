@@ -6,7 +6,7 @@ import { faWarning } from "@fortawesome/free-solid-svg-icons";
 
 import EmailFormInput from "components/form/EmailFormInput";
 
-const AccountAddAdmin = () => {
+const AddAdmin = () => {
 	const functions = getFunctions();
 
 	const [adminEmail, setAdminEmail] = useState("");
@@ -21,7 +21,7 @@ const AccountAddAdmin = () => {
 	};
 
 	return (
-		<div className="card w-full sm:max-w-lg shadow-2xl bg-base-100 border-2 border-warning">
+		<div className="card w-full shadow-2xl bg-base-100 border-2 border-warning">
 			<div className="card-body">
 				<div className="flex justify-between items-center">
 					<h2 className="card-title">Ajouter un administrateur</h2>
@@ -50,4 +50,4 @@ const AccountAddAdmin = () => {
 	);
 };
 
-export default AccountAddAdmin;
+export default AddAdmin;

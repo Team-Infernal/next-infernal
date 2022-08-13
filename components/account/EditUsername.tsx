@@ -7,7 +7,7 @@ import AlertErrorList from "components/alerts/AlertErrorList";
 
 import { verifyUsername } from "utils/formVerification";
 
-const AccountEditUsername = () => {
+const EditUsername = () => {
 	const user = useAuthUser();
 	const currentUsername = user.displayName || "";
 
@@ -75,4 +75,4 @@ const AccountEditUsername = () => {
 	);
 };
 
-export default AccountEditUsername;
+export default EditUsername;

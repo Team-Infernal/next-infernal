@@ -6,6 +6,7 @@ import {
 } from "firebase/auth";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 import Link from "next/link";
 
 import EmailFormInput from "components/form/EmailFormInput";
@@ -63,56 +64,61 @@ const SignUp = () => {
 	};
 
 	return (
-		<div className="hero">
-			<div className="hero-content flex-col lg:flex-row-reverse">
-				<div className="text-center lg:text-left max-w-md">
-					<h1 className="text-5xl font-bold">Créer un compte</h1>
-					<p className="py-6">
-						Créer un compte Infernal vous permet d&apos;accéder à des
-						fonctionnalités tel que le dashboard INFBOT.
-					</p>
-				</div>
-				<div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-					<div className="card-body">
-						<EmailFormInput
-							email={email}
-							setEmail={setEmail}
-						/>
-						<UsernameFormInput
-							username={username}
-							setUsername={setUsername}
-						/>
-						<PasswordFormInput
-							password={passwordOne}
-							setPassword={setPasswordOne}
-						/>
-						<PasswordFormInput
-							password={passwordTwo}
-							setPassword={setPasswordTwo}
-							confirm
-						/>
-						{error && <FormError error={error} />}
-						<div className="form-control mt-3">
-							<button
-								className={`btn btn-${loading ? "disabled" : "primary"} ${
-									loading && "loading"
-								}`}
-								onClick={event => onSignUpClick(event)}
-							>
-								{loading ? "Inscription en cours..." : "S'inscrire"}
-							</button>
-							<label className="label justify-center">
-								<Link href={localRouter.auth.signin.path}>
-									<a className="label-text-alt link link-hover">
-										Vous avez déjà un compte?
-									</a>
-								</Link>
-							</label>
+		<>
+			<Head>
+				<title>Créer un compte • Infernal</title>
+			</Head>
+			<div className="hero">
+				<div className="hero-content flex-col lg:flex-row-reverse">
+					<div className="text-center lg:text-left max-w-md">
+						<h1 className="text-5xl font-bold">Créer un compte</h1>
+						<p className="py-6">
+							Créer un compte Infernal vous permet d&apos;accéder à des
+							fonctionnalités tel que le dashboard INFBOT.
+						</p>
+					</div>
+					<div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+						<div className="card-body">
+							<EmailFormInput
+								email={email}
+								setEmail={setEmail}
+							/>
+							<UsernameFormInput
+								username={username}
+								setUsername={setUsername}
+							/>
+							<PasswordFormInput
+								password={passwordOne}
+								setPassword={setPasswordOne}
+							/>
+							<PasswordFormInput
+								password={passwordTwo}
+								setPassword={setPasswordTwo}
+								confirm
+							/>
+							{error && <FormError error={error} />}
+							<div className="form-control mt-3">
+								<button
+									className={`btn btn-${loading ? "disabled" : "primary"} ${
+										loading && "loading"
+									}`}
+									onClick={event => onSignUpClick(event)}
+								>
+									{loading ? "Inscription en cours..." : "S'inscrire"}
+								</button>
+								<label className="label justify-center">
+									<Link href={localRouter.auth.signin.path}>
+										<a className="label-text-alt link link-hover">
+											Vous avez déjà un compte?
+										</a>
+									</Link>
+								</label>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 

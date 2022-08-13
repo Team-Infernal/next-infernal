@@ -14,6 +14,12 @@ const useDarkMode = (): [
 		const root = window.document.documentElement;
 		root.setAttribute("data-theme", theme);
 
+		if (theme === "infernal-dark") {
+			root.classList.add("dark");
+		} else {
+			root.classList.remove("dark");
+		}
+
 		if (typeof window !== "undefined") {
 			localStorage.setItem("theme", theme);
 		}
