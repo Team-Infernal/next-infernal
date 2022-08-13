@@ -14,7 +14,11 @@ const navbarMobileLinks = [
 	localRouter.jobs,
 ];
 
-const Layout = ({ children }: React.PropsWithChildren<{}>) => {
+type Props = {
+	children: JSX.Element;
+};
+
+const Layout = ({ children }: Props) => {
 	const drawerCheckbox = useRef<HTMLInputElement>(null);
 
 	const closeDrawer = () => {
@@ -73,4 +77,4 @@ const Layout = ({ children }: React.PropsWithChildren<{}>) => {
 	);
 };
 
-export default withAuthUser()(Layout);
+export default withAuthUser()(Layout as () => JSX.Element);
