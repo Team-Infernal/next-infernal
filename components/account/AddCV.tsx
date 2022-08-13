@@ -101,8 +101,8 @@ const AddCV = () => {
 			<AccountCard>
 				<h2 className="card-title">Ajouter votre CV</h2>
 				<span>
-					Dès que votre CV sera analysé et validé, il sera disponible sur la
-					page{" "}
+					Dès que votre CV sera analysé et validé par un administrateur, il sera
+					disponible sur la page{" "}
 					<Link href={localRouter.jobs.path}>
 						<a className="font-semibold link hover:text-primary">
 							{localRouter.jobs.name}

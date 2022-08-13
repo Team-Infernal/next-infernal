@@ -12,11 +12,11 @@ const Welcome = () => {
 						Petite communauté de développeurs ainsi que les créateurs
 						d&apos;INFBOT, le bot Discord multifonction.
 					</p>
-					<button className="btn btn-primary">
-						<Link href={localRouter.auth.signup.path}>
+					<Link href={localRouter.auth.signup.path}>
+						<button className="btn btn-primary">
 							<a>Créer un compte</a>
-						</Link>
-					</button>
+						</button>
+					</Link>
 				</div>
 			</div>
 		</div>
